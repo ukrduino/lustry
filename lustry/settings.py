@@ -52,17 +52,7 @@ WSGI_APPLICATION = 'lustry.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {  # Сначала нужно установить посгрес, создать там базу mydatabase
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lustry',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
+from .settings_db import DATABASES
 
 LANGUAGE_CODE = 'ru-RU'
 

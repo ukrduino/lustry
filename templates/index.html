@@ -53,7 +53,7 @@
 		  </ul>
 		  <ul class="nav navbar-nav navbar-right">
 		  	<li><a href="#">ЗАКАЗЫ</a></li>
-			<li><a href={% url 'my_cart' %}>Корзина  <span class="glyphicon glyphicon-shopping-cart"></span>  {{ request.session.cart_prods|default:0 }} ед.</a></li>
+			<li> <a href={% url 'my_cart' %}>Корзина  <span class="glyphicon glyphicon-shopping-cart"></span>  {{ request.session.cart_prods|default:0 }} ед.</a></li>
 			<li><a href="#">Оплата/доставка/гарантия</a></li>
 			<li><a href={% url 'about' %}>О магазине</a></li>
 		  </ul>
