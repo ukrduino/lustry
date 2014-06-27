@@ -22,7 +22,7 @@
                 <tbody>
                     <tr style="text-align: center">
                         <td>{{ prod.id }}</td>
-                        <td><img src="http://lustry.pythonanywhere.com/{{ prod.product_image}}" height="60" class="img-rounded"></td>
+                        <td><img src="http://127.0.0.1:8000/{{ prod.product_image}}" height="60" class="img-rounded"></td>
                         <td style="text-align: left"> <a href='{% url 'lustra_detail' prod.pk %}'>{{ prod.product_title|truncatechars:25 }}</a></td>
                         <td>{{ prod.product_current_price }}</td>
                         <td><a style="margin-left: 2px; margin-right: 2px" href='{% url 'rem' prod.id %}'><img src="/static/Remove-icon.png" width = 20></a> {{ val }} <a href='{% url 'add' prod.id %}'><img src="/static/Add-icon.png" width = 20></a></td>

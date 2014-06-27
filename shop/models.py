@@ -42,7 +42,7 @@ class Product(models.Model):
 # функция формирования пути к картинке объекта Product для отображения в админке
     def pic(self):
         if self.product_image:  # как заменять адрес сайта ???
-            return '<img src="http://lustry.pythonanywhere.com/%s", height="100"/>' % self.product_image.url
+            return '<img src="http://127.0.0.1:8000/%s", height="100"/>' % self.product_image.url
         else:
             return '(none)'
     pic.short_description = 'Изображение'

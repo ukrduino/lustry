@@ -10,20 +10,7 @@ SOUTH_DATABASE_ADAPTERS = {
     'default' : 'south.db.mysql'
 }
 
-задаем пароль для базы данны во вкладке базы данных там же смотрим имя бд
-
-DATABASES = {
-    'default': {
-        'NAME': 'Lustry$default',
-        'ENGINE': 'mysql.connector.django',
-        'USER': 'Lustry',
-        'PASSWORD': '5031257',
-        'OPTIONS': {
-          'autocommit': True,
-
-        },
-    }
-}
+задаем пароль для базы данны во вкладке базы данных там же смотрим имя бд и имя пользователя
 
 
 
