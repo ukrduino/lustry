@@ -16,6 +16,11 @@ TEMPLATE_DEBUG = True
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'))
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
 ALLOWED_HOSTS = []
 
 
@@ -48,10 +53,6 @@ ROOT_URLCONF = 'lustry.urls'
 
 WSGI_APPLICATION = 'lustry.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
 from .settings_db import DATABASES
 
 LANGUAGE_CODE = 'ru-RU'
@@ -70,6 +71,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)  # директория для статики: картинки, css, js
+IMAGE_UPLOAD_DIR = 'static'  # сюда загружаем картинки из моделей функ
 
 #  доступ к сессии из шаблона
 TEMPLATE_CONTEXT_PROCESSORS = (  # http://stackoverflow.com/questions/2551933/
