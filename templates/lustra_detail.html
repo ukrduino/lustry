@@ -1,0 +1,77 @@
+<!-- расширяет(наследует css) index.html -->
+{% extends 'index.html' %}
+{% load bootstrap %}
+
+<!-- этот блок внедряется в index.html в месте
+где написано { % block main %} { % endblock %}(без пробела после первой фиг скобки)-->
+
+{% block lustra %}
+
+		<div class="row">
+
+            <div class="col-lg-4">
+        	    <div class="well">
+            	    <img src="http://lustry.pythonanywhere.com/{{ product.product_image }}" alt="{{ product.product_title }}" width="300">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="well"><h3>{{ product.product_title|truncatechars:25 }}</h3>
+                                        Высота: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_h }}</strong></span> мм<br>
+                                        Ширина: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_w }}</strong></span> мм<br>
+                                        Тип патрона: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_patr }}</strong></span> <br>
+                                        Количество ламп: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_lamps }}</strong></span><br>
+                                        Макс.мощность лампочки: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_l_power }}</strong></span> Вт<br>
+                                        Цвет арматуры: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_arm_col }}</strong></span><br>
+                                        Материал арматуры: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_arm_mat }}</strong></span><br>
+                                        Цвет плафонов: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_plaf_col }}</strong></span><br>
+                                        Материал плафонов: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_plaf_mat }}</strong></span><br>
+                                        Производитель: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_prod }}</strong></span><br>
+                                        Страна: <span style="color: blue; font-size: 14px"><strong>{{ product.product_lusta_country }}</strong></span><br>
+                                        Лампы в комплекте: {% if product.product_lusta_compl == True %}<span style="color: blue; font-size: 14px"><strong>да</strong></span>{% else %}<span style="color: red; font-size: 14px"><strong>нет</strong></span><br>{% endif %}<br>
+                                        Есть на складе: {% if product.product_present == True %}<span style="color: blue; font-size: 14px"><strong>да</strong></span>{% else %}<span style="color: red; font-size: 14px"><strong>нет</strong></span><br>{% endif %}<br>
+                                        Под заказ: {% if product.product_order == True %}<span style="color: blue; font-size: 14px"><strong>да</strong></span>{% else %}<span style="color: red; font-size: 14px"><strong>нет</strong></span><br>{% endif %}<br>
+                </div>
+                <div class="well">
+                    <div style="color: red; font-size: 20px; text-align: right">
+                        <strong>{{ product.product_current_price|default:0 }} грн</strong>  <a class="btn btn-success" href='{% url 'add_main' product.id %}'>Купить <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4">
+                <div class="well">
+        	        <p>{{ product.product_text }}</p>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <h4>Комментарии:</h4>
+            <hr>
+            {% for comm in comments %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ comm.comment_date|date:"D d M Y"}}</div>
+                    <div class="panel-body">
+                        {{ comm.comment_text|safe}}
+                    </div>
+                </div>
+
+            {% endfor %}
+
+            <form action="add_comment/{{ product.id }}" method="post">
+                {% csrf_token %}
+                {{ form.comment_text|bootstrap }}
+                {{ form.captcha }}
+
+                <p style="text-align: right"><input type="submit" class="btn btn-success" value="Добавить комментарий"></p>
+            </form>
+        </div>
+
+{% endblock %}
+
+<script>
+  CKEDITOR.replace('comment_text')
+</script>
+

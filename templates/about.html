@@ -1,0 +1,23 @@
+ <!-- расширяет(наследует css) index.html -->
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+<!-- этот блок внедряется в index.html в месте
+где написано { % block main %} { % endblock %}(без пробела после первой фиг скобки)-->
+
+{% block about %}
+ 	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center">Не переплачивайте</h1>
+			<h2 class="text-center">за Китайскую технику</h1>
+			<h3 class="text-center">в торговых сетях!!!*</h1>
+			<p class="lead text-primary">Я вам предлагаю ту же самую китайскую технику, от тех же самых поставщиков, но ДЕШЕВЛЕ.</p>
+			<a class="btn btn-large btn-success pull-right" href="#"><span class="glyphicon glyphicon-star">  Я понял !!!!</span></a></div>
+			<p class="text-right"> * Александр-Таврический (самый честный продавец на рынке "Три штыка")</p>
+
+
+
+
+		</div>
+	</div><!-- /.container-fluid -->
+{% endblock%}

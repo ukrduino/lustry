@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% load bootstrap %}
+
+{% block cart %}
+<div class="col-lg-6">
+   <h2 style='text-align: center'>Ваша корзина  <span class="glyphicon glyphicon-shopping-cart"></span></h2>
+    <table class="table-bordered" style="width: 100%">
+    <thead>
+        <tr >
+            <th style="width: 12%; text-align: center">Код товара</th>
+            <th style="width: 10%; text-align: center">Фото</th>
+            <th style="width: auto">Наименование</th>
+            <th style="width: 10%; text-align: center">Цена (грн.)</th>
+            <th style="width: 15%; text-align: center">Количество (ед.)</th>
+            <th style="width: 15%; text-align: center">Сумма (грн.)</th>
+        </tr>
+    </thead>
+    <!-- http://stackoverflow.com/a/6285769 - доступ к записям словаря в шаблоне .items -->
+    {% for key, val in request.session.prods.items %}
+        {% for prod in products %}
+           {% if prod.id == key %}
+                <tbody>
+                    <tr style="text-align: center">
+                        <td>{{ prod.id }}</td>
+                        <td><img src="http://lustry.pythonanywhere.com/{{ prod.product_image}}" height="60" class="img-rounded"></td>
+                        <td style="text-align: left"> <a href='{% url 'lustra_detail' prod.pk %}'>{{ prod.product_title|truncatechars:25 }}</a></td>
+                        <td>{{ prod.product_current_price }}</td>
+                        <td><a style="margin-left: 2px; margin-right: 2px" href='{% url 'rem' prod.id %}'><img src="/static/Remove-icon.png" width = 20></a> {{ val }} <a href='{% url 'add' prod.id %}'><img src="/static/Add-icon.png" width = 20></a></td>
+                        <td>{% widthratio prod.product_current_price 1 val %}</td>
+<!--                       про вычисления в шаблонах:
+                           https://pypi.python.org/pypi/django-mathfilters
+                           http://slacy.com/blog/2010/07/using-djangos-widthratio-template-tag-for-multiplication-division/ -->
+                    </tr>
+                </tbody>
+           {% endif %}
+        {% endfor %}
+    {% endfor %}
+    </table>
+    <h4 style='text-align: right; margin-top: 10px'>Количество единиц товара в заказе: <span style="color: blue"><strong>{{ request.session.cart_prods }}</strong></span> ед.</h4>
+    <h4 style='text-align: right; margin-top: 10px'>Общая сумма заказа: <span style="color: blue"><strong>{{ request.session.cart_cost }}</strong></span> грн.</h4>
+</div>
+<div class="col-lg-6">
+  <h4 style='text-align: center; margin-top: 30px'>Введите Ваши данные для оформления заказа . . .   <span class="glyphicon glyphicon-pencil"></span></h4>
+  <form action='{% url 'make_order' %}' method="post" style="margin-top: 30px">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <p><input type="submit" class="btn btn-success" value="Добавить заказ"></p>
+  </form>
+</div>
+{% endblock %}

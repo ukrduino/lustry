@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+
+
+{% block main %}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Магазин ЯРКОГО света</h3>
+            </div>
+            <div class="panel-body">
+            В наличии и под заказ:<br>
+<strong>люстры, торшеры, бра</strong> (Aggio Mario, ALT Lucialternative, Antea Luce, Paulo Coelho, Reccagni Angelo , Savoy, Sforzin, Stillux и др.);<br>
+<strong>лампы, автолампы, спецлампы</strong> (Osram, Philips, Sylvania, Pila, Narva);<br>
+<strong>садово-парковые</strong> (PXF Lighting, Rosa), офисные (PXF Lighting, Philips) и промышленные светильники;<br>
+<strong>электротехническое оборудование:</strong> розетки, выключатели, автоматические переключатели и др. (ABB, Moeller, Sabaj, Schneider Electric, Legrand).<br>
+            </div>
+            <div class="panel-footer">
+                <address>
+                    <strong>Магазин ЯРКОГО света</strong><br>
+                    73000 Украина, Херсон<br>
+                    Рынок Северный, магазин №<br>
+                    (123) 456-7890
+                </address>
+
+                <address>
+                  <strong>Магазин ЯРКОГО света</strong><br>
+                  <a href="mailto:#">Alex.Vlasov.ukr@gmail.com</a>
+                </address>
+            </div>
+        </div>
+    </div>
+<div class="col-lg-8">
+<div id="carousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+        <li data-target="#carousel" data-slide-to="3"></li>
+        <li data-target="#carousel" data-slide-to="4"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="http://lustry.pythonanywhere.com/static/1.jpg" alt="">
+
+        </div>
+        <div class="item">
+          <img src="http://lustry.pythonanywhere.com/static/2.jpg" alt="">
+
+        </div>
+        <div class="item">
+          <img src="http://lustry.pythonanywhere.com/static/3.jpg" alt="">
+
+        </div>
+        <div class="item">
+          <img src="http://lustry.pythonanywhere.com/static/4.jpg" alt="">
+
+        </div>
+        <div class="item">
+          <img src="http://lustry.pythonanywhere.com/static/5.jpg" alt="">
+
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+</div>
+</div>
+</div>
+
+{% endblock%}
