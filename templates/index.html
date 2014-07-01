@@ -11,11 +11,12 @@
         <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static "css/style.css" %}" type="text/css" />
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" type="text/css" />
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,7 +56,7 @@
 		  <ul class="nav navbar-nav navbar-right">
 		  	<li><a href="#">ЗАКАЗЫ</a></li>
 			<li> <a href={% url 'my_cart' %}>Корзина  <span class="glyphicon glyphicon-shopping-cart"></span>  {{ request.session.cart_prods|default:0 }} ед.</a></li>
-			<li><a href="#">Оплата/доставка/гарантия</a></li>
+			<li><a href="{% url 'dost_opl' %}">Оплата/доставка/гарантия</a></li>
 			<li><a href={% url 'about' %}>О магазине</a></li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
@@ -67,6 +68,7 @@
         {% block lustry %}{% endblock %}
         {% block lustra %}{% endblock %}
         {% block cart %}{% endblock %}
+        {% block dost_opl %}{% endblock %}
     </div><!-- /.container -->
   </body>
 </html>

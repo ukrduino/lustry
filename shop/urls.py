@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     #url(r'^lustry/(?P<pk>\d+)$', DetailView.as_view(model = Lustra, template_name = "lustra_detail.html"), name='lustra_detail'),
         # маленький и клевенький ClassBasedView!!!
     url(r'^about/$', TemplateView.as_view(template_name="about.html"), name="about"),
-
+    url(r'^dost_opl/$', TemplateView.as_view(template_name="dost_opl.html"), name="dost_opl"),
 #    url(r'^product/add_like/(?P<product_id>\d+)$', 'Shop.views.add_like', name='like'),
     url(r'^lustry/add_comment/(?P<product_id>\d+)$', 'shop.views.add_comment', name='comment'),
 
