@@ -26,9 +26,10 @@ class ProductAdmin(admin.ModelAdmin):  # класс для перенастро�
 
 class OrderAdmin(admin.ModelAdmin):  # класс для перенастройки отображения класса Product в админке
 
-    list_display = ['order_code', 'order_person', 'order_date', 'order_summ', 'order_delivered']  # возможность просматривать записи
-                                                                                                  # Order в виде таблицы
-    list_filter = ['order_date', 'order_summ', 'order_delivered']  # включение фильтра по датам
+    list_display = ['order_code', 'order_person', 'order_date', 'order_summ', 'order_delivered',
+                    'order_confirmed']  # возможность просматривать записи
+                                        # Order в виде таблицы
+    list_filter = ['order_date', 'order_summ', 'order_delivered', 'order_confirmed']  # включение фильтра по датам
     search_fields = ['order_code', 'order_person']
 
 # Register your models here.

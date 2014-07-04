@@ -18,6 +18,7 @@ class OrderForm(ModelForm):
     class Meta:
         model = Order
         exclude = ['order_date',
+                   'order_confirmed',
                    'order_delivered',
                    'order_products',
                    'order_code',

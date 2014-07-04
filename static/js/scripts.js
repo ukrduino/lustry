@@ -1,6 +1,7 @@
 $(function (){
 //    alert('Подключено!!!');
-    username();
+    get_username();
+
     $('#textbox').keypress(function(event){
         if ( event.which == 13){
             if ( $('#enter').prop('checked')){
@@ -17,24 +18,61 @@ $(function (){
         $('#textbox').val('');
 
         var prevState = $('#display').html();
+
 //        console.log('prevState.length = ' + prevState.length);
 //        console.log('newMessage.length = ' + newMessage.length);
+
         if ( prevState.length > 10){
             prevState += '<br>';
         }
         if ( newMessage.length != 0 ){
             $('#display').html(prevState + username + newMessage);
             $('#display').scrollTop($('#display').prop('scrollHeight'));
+            ai(newMessage);
         }
 
     });
 });
 
-function username(){
-    $('#display').html('<span class="bot">Робот: </span> Привет! Как тебя зовут?')
+var username = '';
+
+function get_username(){
+    send_message('Привет! Как тебя зовут?');
+
+}
+function ai(newMessage){
+    if( username < 10 ){
+        username = newMessage;
+        send_message('Привет, '+ username + '! Как дела???');
+    }
+    if (newMessage.indexOf('как дела')>=0){
+        send_message('Спасибо! Неплохо!');
+
+    }
+    if (newMessage.indexOf('час')>=0){
+        var date = new Date();
+        var h = date.getHours();
+        var m = date.getMinutes();
+        send_message('Текущее время: '+ h + ':' + m);
+    }
 }
 
+function send_message(messageFromAI){
+    var prevState = $('#display').html();
 
+    if ( prevState.length > 10){
+        prevState += '<br>';
+    }
+
+        $('#display').html(prevState + '<span class="currentMessage">' + '<span class="bot">Робот: </span>' + messageFromAI + '</span>');
+        $('.currentMessage').hide();
+        $('.currentMessage').delay(500).fadeIn();
+        $('.currentMessage').removeClass('currentMessage');
+
+
+
+
+}
 //
 //function trial(){
 //    document.getElementById('demo').innerHTML = 'Hi, I am your javascript from an external source';

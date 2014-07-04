@@ -50,7 +50,18 @@
         </div>
         <div class="row">
             <h4>Комментарии:</h4>
-            <hr>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        {% if 'error' in message.tags %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
             {% for comm in comments %}
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ comm.comment_date|date:"D d M Y"}}</div>

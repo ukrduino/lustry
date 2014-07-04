@@ -38,13 +38,33 @@
     </table>
     <h4 style='text-align: right; margin-top: 10px'>Количество единиц товара в заказе: <span style="color: blue"><strong>{{ request.session.cart_prods }}</strong></span> ед.</h4>
     <h4 style='text-align: right; margin-top: 10px'>Общая сумма заказа: <span style="color: blue"><strong>{{ request.session.cart_cost }}</strong></span> грн.</h4>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        {% if 'success' in message.tags %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+
+                        {% endif %}
+                        {% if 'error' in message.tags %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
 </div>
+
 <div class="col-lg-6">
-  <h4 style='text-align: center; margin-top: 30px'>Введите Ваши данные для оформления заказа . . .   <span class="glyphicon glyphicon-pencil"></span></h4>
-  <form action='{% url 'make_order' %}' method="post" style="margin-top: 30px">
-    {% csrf_token %}
-    {{ form|bootstrap }}
-    <p><input type="submit" class="btn btn-success" value="Добавить заказ"></p>
-  </form>
+    <h4 style='text-align: center; margin-top: 30px'>Введите Ваши данные для оформления заказа . . .   <span class="glyphicon glyphicon-pencil"></span></h4>
+    <form action='{% url 'make_order' %}' method="post" style="margin-top: 30px">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <p><input type="submit" class="btn btn-success" value="Добавить заказ"></p>
+    </form>
 </div>
 {% endblock %}

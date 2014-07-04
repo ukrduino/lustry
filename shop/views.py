@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
-# отдача страниц и перевод пользователя на другую страницу
+
 from django.shortcuts import render_to_response, redirect, render
 from shop.models import Lustra, Comment# импортируем модели
 #from django.core.exceptions import ObjectDoesNotExist  # ошибка - объект не существует
 #from django.http.response import Http404  # вывод страницы 404
-from shop.forms import CommentForm, OrderForm  # TODO разобраться с моделью формы
+from shop.forms import CommentForm, OrderForm
 from django.core.context_processors import csrf  # защита данных передаваемых из форм
 #from django.contrib import auth   # модуль авторизации
 from django.template import RequestContext
 from django.core.mail import send_mail
-
-
+from django.contrib import messages
 
 
 def add_to_cart_main(request, product_id=1):
@@ -45,7 +44,8 @@ def add_to_cart_main(request, product_id=1):
     return redirect('lustra_list')
 
 
-def cart(request):  # группировка товаров... товаров с таким-то id  - 2, с таким-то - 4...  для выписывания счета (создания заказа для сохренения в Б/д)
+def cart(request):  # группировка товаров... товаров с таким-то id  - 2,
+                    # с таким-то - 4...  для выписывания счета (создания заказа для сохренения в Б/д)
     # из словаря session получаем запись соотв ключу cart - в ней список с id выбранных товаров
     cart_checkout = request.session.get('cart')
     # создаем словарь для группировки id
@@ -62,7 +62,9 @@ def cart(request):  # группировка товаров... товаров с
     request.session['prods'] = prod_cart_checkout
     form = OrderForm
 
-    return render(request, 'cart.html', {'products': Lustra.objects.all(),'form':form})
+    return render_to_response('cart.html', {'products': Lustra.objects.all(), 'form': form},
+                              context_instance=RequestContext(request))
+
 
 def add_to_cart(request, product_id=1):
     add_usercart = request.session.get('cart')
@@ -104,16 +106,22 @@ def add_comment(request, product_id=1):
             comment = form.save(commit=False)
             comment.comment_product = Lustra.objects.get(id=product_id)
             form.save()
+            messages.success(request, 'Спасибо за Ваш заказ, на Ваш электронный адрес '
+                                      'направлено письмо со ссылкой для подтверждения заказа.'
+                                      'После подтверждения Вы можете найти/изменить свой заказ '
+                                      'в разделе заказы по его номеру')
+
             request.session.set_expiry(60)  # создает объект сессии и настраивает срок ее действия -60 секунд
             request.session['pause'] = True  # Внутри сессии создает переменную 'pause' равную TRUE.
+        else:
+            messages.error(request, 'Сообщение не опубликовано!!!    Вы неправильно ответили '
+                                    'на вопрос проверки или оставили сообщение менее '
+                                    '1 минуты назад.')
     return redirect('/lustry/%s' % product_id)
 
 
-
-
 def lustra_detail(request, product_id=1):
-    comment_form = CommentForm   # TODO разобраться с моделью формы добавить дату комментария
-    context = RequestContext(request)
+    comment_form = CommentForm
     args = {}
     args.update(csrf(request))
     args['product'] = Lustra.objects.get(id=product_id)
@@ -121,7 +129,7 @@ def lustra_detail(request, product_id=1):
     args['form'] = comment_form
 #    args['username'] = auth.get_user(request).username
 # В шаблон lustra_detail.html передаются данные одним словарем args и контекст(с сессией)
-    return render_to_response('lustra_detail.html', args, context_instance=context)
+    return render_to_response('lustra_detail.html', args, context_instance=RequestContext(request))
 
 
 def make_order(request):
@@ -133,5 +141,12 @@ def make_order(request):
             add.order_products = request.session.get('cart')
             add.order_summ = request.session.get('cart_cost')
             add.save()
+            messages.success(request, 'Спасибо за Ваш заказ, на Ваш электронный адрес'
+                                      'направлено письмо со ссылкой для подтверждения заказа. '
+                                      'После подтверждения Вы можете найти/изменить свой заказ '
+                                      'в разделе заказы по его номеру.')
             send_mail("АЛЕ!!!!", "У вас новый заказ!!!", 'Alex.Vlasov.ukr@gmail.com', ['ukrduino@gmail.com'], fail_silently=False)
-    return redirect('home')
+        else:
+            messages.error(request, 'Ваш заказ НЕ ОФОРМЛЕН!!! Проверьте правильность введения '
+                                    'данных и повторите заказ. ВСЕ поля НЕОБХОДИМО заполнить!!!')
+    return redirect(cart)

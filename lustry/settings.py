@@ -78,6 +78,9 @@ IMAGE_UPLOAD_DIR = 'static'  # сюда загружаем картинки из
 TEMPLATE_CONTEXT_PROCESSORS = (  # http://stackoverflow.com/questions/2551933/
                                  # django-accessing-session-variables-from-within-a-template
     'django.core.context_processors.request',
+#    'django.core.context_processors.media',
+#    'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
     'django.contrib.auth.context_processors.auth'
 )
 SESSION_SAVE_EVERY_REQUEST = True

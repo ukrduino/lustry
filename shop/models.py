@@ -117,6 +117,7 @@ class Order(models.Model):
                                              blank=False, choices=DELIV_CHOISES)
     order_date = models.DateTimeField(verbose_name='Дата размещения', default=timezone.now)
     order_delivered = models.BooleanField(verbose_name='Заказ выполнен', default=False)
+    order_confirmed = models.BooleanField(verbose_name='Заказ подтвержден', default=False)
     order_products = models.CharField(max_length=200, verbose_name='Заказанные товары', blank=True)
     order_code = models.CharField(max_length=4, verbose_name='Код заказа', default=random.randint(0, 10000))
     order_password = models.CharField(max_length=15, verbose_name='Пароль к заказу')
