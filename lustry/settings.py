@@ -35,7 +35,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'shop',
     'bootstrapform',  # суперски бутстрапит стандартные формы django
-    'south',
     'captcha',
 
 )
@@ -53,7 +52,12 @@ ROOT_URLCONF = 'lustry.urls'
 
 WSGI_APPLICATION = 'lustry.wsgi.application'
 
-from .settings_db import DATABASES
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'lustry.db'),
+    }
+}
 
 LANGUAGE_CODE = 'ru-RU'
 
